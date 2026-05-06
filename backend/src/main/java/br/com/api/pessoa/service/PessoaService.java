@@ -77,4 +77,22 @@ public class PessoaService {
 		// Efeturar a remoção
 		repository.deleteById(id);
 	}
+
+	// Obter imagem
+	public byte[] obterImagem(Integer id){
+		// Obter o objeto Pessoa
+		Pessoa p = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada!"));
+
+		// Retornar
+		return p.getImagem();
+	}
+
+	// Obter extensão
+	public String obterExtensao(Integer id){
+		// Obter o objeto Pessoa
+		Pessoa p = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada!"));
+
+		// Retornar
+		return p.getExtensao();
+	}
 }
