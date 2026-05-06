@@ -2,13 +2,14 @@
 import "./Formulario.css";
 
 // Componente
-function Formulario({botao}){
+function Formulario({botao, pessoa, atualizarPessoa}){
 	// Render
 	return(
 		<form>
-			<input type="number" placeholder="Código" className="form-control" readOnly/>
-			<input type="text" placeholder="Nome" className="form-control"/>
-			<input type="text" placeholder="Cidade" className="form-control"/>
+			<h1>{JSON.stringify(pessoa)}</h1>
+			<input type="number" onChange={atualizarPessoa} name="id" placeholder="Código" className="form-control" readOnly/>
+			<input type="text" onChange={atualizarPessoa} name="nome" placeholder="Nome" className="form-control"/>
+			<input type="text" onChange={atualizarPessoa} name="cidade" placeholder="Cidade" className="form-control"/>
 
 			{
 				botao

@@ -15,15 +15,23 @@ function App(){
 	// Hook useState
 	const[pessoas, setPessoas] = useState([]);
 	const[botaoCadastrar, setBotaoCadastrar] = useState(true);
+	const[pessoa, setPessoa] = useState({id:null, nome:"", cidade:""});
 
 	// Hook useEffect
 	useEffect(() => {
 		fetch("http://localhost:8080/selecionar").then(response => response.json()).then(pessoas => setPessoas(pessoas));
 	}, []);
+
+	// Atualizar objeto pessoa
+	const atualizarPessoa = (e) => {
+		const {name, value} = e.target;
+		setPessoa({...pessoa, [name]:value})
+	}
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar}/>
+			<Formulario botao={botaoCadastrar} pessoa={pessoa} atualizarPessoa={atualizarPessoa}/>
 			<Tabela registros={pessoas}/>
 		</>
 	);
