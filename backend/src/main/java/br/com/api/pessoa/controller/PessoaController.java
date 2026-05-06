@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.api.pessoa.model.Pessoa;
 import br.com.api.pessoa.service.PessoaService;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,4 +71,17 @@ public class PessoaController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	// Exibir imagem da pessoa através do id
+	@GetMapping("/imagem/{id}")
+	public ResponseEntity<byte[]> imagem(@PathVariable Integer id) {
+		try{
+			byte[] imagem = servico.obterImagem(id);
+			String extensao = servico.obterExtensao(id);
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(extensao)).body(imagem);
+		}catch(Exception e){
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 }
