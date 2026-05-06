@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,8 @@ public class Pessoa {
 	private Integer id;
 	private String nome;
 	private String cidade;
+
+	@Lob
+	private byte[] imagem;
+	private String extensao;
 }
