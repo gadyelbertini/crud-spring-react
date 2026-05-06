@@ -14,6 +14,7 @@ function App(){
 
 	// Hook useState
 	const[pessoas, setPessoas] = useState([]);
+	const[botaoCadastrar, setBotaoCadastrar] = useState(true);
 
 	// Hook useEffect
 	useEffect(() => {
@@ -22,7 +23,7 @@ function App(){
 	// Render
 	return(
 		<>
-			<Formulario/>
+			<Formulario botao={botaoCadastrar}/>
 			<Tabela registros={pessoas}/>
 		</>
 	);
