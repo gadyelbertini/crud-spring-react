@@ -29,4 +29,10 @@ public class PessoaController {
 	public Pessoa cadastrar(@RequestBody Pessoa p) {
 		return repository.save(p);
 	}
+
+	// Rota para selecionar
+	@GetMapping("/selecionar")
+	public Iterable<Pessoa> selecionar(){
+		return repository.findAll();
+	}
 }
