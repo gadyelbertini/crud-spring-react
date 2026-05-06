@@ -60,12 +60,21 @@ public class PessoaService {
 		p.setId(id);
 
 		// Obter os dados atuais da pessoa contida na tabela
-		Pessoa pessoa = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada"));
+		Pessoa pessoa = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada!"));
 
 		// Extrair a imagem e a extensão para o objeto p
 		p.setImagem(pessoa.getImagem());
 		p.setExtensao(pessoa.getExtensao());
 
 		return repository.save(p);
+	}
+
+	// Remover pessoas
+	public void remover(Integer id){
+		// Verificar a existência da pessoa com o id informado
+		repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada!"));
+
+		// Efeturar a remoção
+		repository.deleteById(id);
 	}
 }
