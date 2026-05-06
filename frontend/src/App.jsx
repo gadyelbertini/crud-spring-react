@@ -1,13 +1,12 @@
-// Importar o Bootstrap
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
-
 // Importar componentes
 import Formulario from "./components/formulario/Formulario";
 import Tabela from "./components/tabela/Tabela";
 
 // Hook useEffect e useState
 import { useEffect, useState } from "react";
+
+// Importar funções da camada de serviço
+import { alterarPessoa, cadastrarPessoa, listarPessoas, removerPessoa } from "./service/pessoaService";
 
 // Componente
 function App(){

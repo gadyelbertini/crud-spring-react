@@ -2,11 +2,13 @@ package br.com.api.pessoa.service;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.api.pessoa.model.Pessoa;
 import br.com.api.pessoa.repository.PessoaRepository;
 
+@Service
 public class PessoaService {
 	
 	// Referência do repositório
