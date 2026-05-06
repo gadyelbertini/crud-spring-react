@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @CrossOrigin(value = "*")
@@ -44,4 +48,14 @@ public class PessoaController {
 		}
 	}
 	
+	// Rota para alterar pessoas
+	@PutMapping("/alterar/{id}")
+	public ResponseEntity<?> alterar(@PathVariable Integer id, @RequestBody Pessoa p) {
+		try{
+			Pessoa pessoa = servico.alterar(id, p);
+			return ResponseEntity.ok(pessoa);
+		}catch(Exception e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
