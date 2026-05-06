@@ -46,10 +46,16 @@ function App(){
 		setBotaoCadastrar(false);
 	}
 
+	// Cancelar
+	const cancelar = () => {
+		setPessoa({id:null, nome:"", cidade:""});
+		setBotaoCadastrar(true);
+	}
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa}/>
+			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa} cancelar={cancelar}/>
 			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
