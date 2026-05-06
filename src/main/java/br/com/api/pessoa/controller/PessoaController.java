@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -34,5 +37,12 @@ public class PessoaController {
 	@GetMapping("/selecionar")
 	public Iterable<Pessoa> selecionar(){
 		return repository.findAll();
+	}
+
+	// Rota para alterar
+	@PutMapping("/alterar/{id}")
+	public Pessoa alterar(@PathVariable Integer id, @RequestBody Pessoa p) {
+		p.setId(id);
+		return repository.save(p);
 	}
 }
