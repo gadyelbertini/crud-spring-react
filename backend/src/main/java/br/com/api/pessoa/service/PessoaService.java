@@ -45,4 +45,27 @@ public class PessoaService {
 		// Retorno
 		return repository.save(p);
 	}
+
+	// Alterar pessoas
+	public Pessoa alterar(Integer id, Pessoa p){
+		// Validar dados
+		if (p.getNome() == null || p.getNome().isEmpty()) {
+			throw new IllegalArgumentException("O nome é obrigatório!");
+		}
+		if (p.getCidade() == null || p.getCidade().isEmpty()) {
+			throw new IllegalArgumentException("A cidade é obrigatória!");
+		}
+
+		// Atribuir o id no objeto p
+		p.setId(id);
+
+		// Obter os dados atuais da pessoa contida na tabela
+		Pessoa pessoa = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada"));
+
+		// Extrair a imagem e a extensão para o objeto p
+		p.setImagem(pessoa.getImagem());
+		p.setExtensao(pessoa.getExtensao());
+
+		return repository.save(p);
+	}
 }
