@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 // Importar componentes
-import Formulario from "./components/Formulario";
-import Tabela from "./components/Tabela";
+import Formulario from "./components/formulario/Formulario";
+import Tabela from "./components/tabela/Tabela";
 
 // Componente
 function App(){
