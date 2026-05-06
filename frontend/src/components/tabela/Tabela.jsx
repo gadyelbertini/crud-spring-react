@@ -1,7 +1,24 @@
+// Importar o CSS
+import "./Tabela.css";
+
 // Componente
 function Tabela(){
 	// Render
-	return <h1>Tabela</h1>;
+	return(
+		<table className="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>Cidade</th>
+					<th>Selecionar</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	);
 }
 
 // Exportar
