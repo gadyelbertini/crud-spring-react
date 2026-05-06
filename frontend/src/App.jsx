@@ -52,10 +52,22 @@ function App(){
 		setBotaoCadastrar(true);
 	}
 
+	// Aterar
+	const alterar = () => {
+		fetch("http://localhost:8080/alterar/" + pessoa.id, {
+			method:"PUT",
+			headers:{"Content-Type":"application/json"},
+			body:JSON.stringify(pessoa)
+		}).then(retorno => retorno.json()).then(p => {
+			setPessoas(pessoas.map(pessoa => pessoa.i === p.id ? p : pessoa));
+			cancelar();
+		})
+	}
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa} cancelar={cancelar}/>
+			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa} cancelar={cancelar} alterar={alterar}/>
 			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
