@@ -11,4 +11,9 @@ public class PessoaService {
 	public PessoaService(PessoaRepository repository){
 		this.repository = repository;
 	};
+
+	// Listar todas as pessoas
+	public Iterable<Pessoa> selecionar(){
+		return repository.findAll();
+	}
 }
