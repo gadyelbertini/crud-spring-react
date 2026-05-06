@@ -2,7 +2,7 @@
 import "./Formulario.css";
 
 // Componente
-function Formulario({botao, atualizarPessoa, cadastrar, pessoa, cancelar, alterar}){
+function Formulario({botao, atualizarPessoa, cadastrar, cancelar, alterar, remover, pessoa}){
 	// Render
 	return(
 		<form>
@@ -17,7 +17,7 @@ function Formulario({botao, atualizarPessoa, cadastrar, pessoa, cancelar, altera
 				:
 				<>
 					<input type="button" onClick={alterar} value="Alterar" className="btn btn-primary"/>
-					<input type="button" value="Remover" className="btn btn-primary"/>
+					<input type="button" onClick={remover} value="Remover" className="btn btn-primary"/>
 					<input type="button" onClick={cancelar} value="Cancelar" className="btn btn-primary"/>
 				</>
 			}

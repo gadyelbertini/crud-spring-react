@@ -64,10 +64,29 @@ function App(){
 		})
 	}
 
+	// Remover
+	const remover = () => {
+		fetch("http://localhost:8080/remover/" + pessoa.id, {
+			method:"DELETE"
+		}).then(() => {
+			setPessoas(pessoas.filter(p => p.id !== pessoa.id));
+			cancelar();
+		})
+	}
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa} cancelar={cancelar} alterar={alterar}/>
+			<Formulario 
+				botao={botaoCadastrar}
+				atualizarPessoa={atualizarPessoa}
+				cadastrar={cadastrar}
+				cancelar={cancelar}
+				alterar={alterar}
+				remover={remover}
+				pessoa={pessoa}
+				
+			/>
 			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
