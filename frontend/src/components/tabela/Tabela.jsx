@@ -1,11 +1,8 @@
-// Importar o CSS
-import "./Tabela.css";
-
 // Componente
-function Tabela(){
+function Tabela({registros}){
 	// Render
 	return(
-		<table className="table">
+		<table className="table table-striped">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -15,7 +12,16 @@ function Tabela(){
 				</tr>
 			</thead>
 			<tbody>
-
+				{
+					registros.map((pessoa, indice) => (
+						<tr key={indice}>
+							<td>{indice+1}</td>
+							<td>{pessoa.nome}</td>
+							<td>{pessoa.cidade}</td>
+							<td><button className="btn btn-primary">Selecionar</button></td>
+						</tr>
+					))
+				}
 			</tbody>
 		</table>
 	);

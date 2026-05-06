@@ -6,21 +6,24 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import Formulario from "./components/formulario/Formulario";
 import Tabela from "./components/tabela/Tabela";
 
-// Hook useEffect
-import { useEffect } from "react";
+// Hook useEffect e useState
+import { useEffect, useState } from "react";
 
 // Componente
 function App(){
 
+	// Hook useState
+	const[pessoas, setPessoas] = useState([]);
+
 	// Hook useEffect
 	useEffect(() => {
-		fetch("http://localhost:8080/selecionar").then(response => response.json()).then(pessoas => console.table(pessoas));
+		fetch("http://localhost:8080/selecionar").then(response => response.json()).then(pessoas => setPessoas(pessoas));
 	}, []);
 	// Render
 	return(
 		<>
 			<Formulario/>
-			<Tabela/>
+			<Tabela registros={pessoas}/>
 		</>
 	);
 }
