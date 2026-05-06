@@ -28,11 +28,66 @@ function App(){
 		setPessoa({...pessoa, [name]:value})
 	}
 
+	// Cadastrar
+	const cadastrar = () => {
+		fetch("http://localhost:8080/cadastrar", {
+			method:"POST",
+			headers:{"Content-Type":"application/json"},
+			body:JSON.stringify(pessoa)
+		}).then(retorno => retorno.json()).then(p => {
+			setPessoas(vetor => [...vetor, p]);
+			setPessoa({id:null, nome:"", cidade:""});
+		})
+	}
+
+	// Selecionar pessoa específica
+	const selecionarPessoa = (indice) => {
+		setPessoa(pessoas[indice]);
+		setBotaoCadastrar(false);
+	}
+
+	// Cancelar
+	const cancelar = () => {
+		setPessoa({id:null, nome:"", cidade:""});
+		setBotaoCadastrar(true);
+	}
+
+	// Aterar
+	const alterar = () => {
+		fetch("http://localhost:8080/alterar/" + pessoa.id, {
+			method:"PUT",
+			headers:{"Content-Type":"application/json"},
+			body:JSON.stringify(pessoa)
+		}).then(retorno => retorno.json()).then(p => {
+			setPessoas(pessoas.map(pessoa => pessoa.i === p.id ? p : pessoa));
+			cancelar();
+		})
+	}
+
+	// Remover
+	const remover = () => {
+		fetch("http://localhost:8080/remover/" + pessoa.id, {
+			method:"DELETE"
+		}).then(() => {
+			setPessoas(pessoas.filter(p => p.id !== pessoa.id));
+			cancelar();
+		})
+	}
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} pessoa={pessoa} atualizarPessoa={atualizarPessoa}/>
-			<Tabela registros={pessoas}/>
+			<Formulario 
+				botao={botaoCadastrar}
+				atualizarPessoa={atualizarPessoa}
+				cadastrar={cadastrar}
+				cancelar={cancelar}
+				alterar={alterar}
+				remover={remover}
+				pessoa={pessoa}
+				
+			/>
+			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
 }
