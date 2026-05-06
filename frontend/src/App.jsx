@@ -28,10 +28,23 @@ function App(){
 		setPessoa({...pessoa, [name]:value})
 	}
 
+	// Cadastrar
+	const cadastrar = () => {
+		fetch("http://localhost:8080/cadastrar", {
+			method:"POST",
+			headers:{"Content-Type":"application/json"},
+			body:JSON.stringify(pessoa)
+		}).then(retorno => retorno.json()).then(p => {
+			setPessoas(vetor => [...vetor, p]);
+			setPessoa({id:null, nome:"", cidade:""});
+		})
+	}
+
+
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} pessoa={pessoa} atualizarPessoa={atualizarPessoa}/>
+			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar}/>
 			<Tabela registros={pessoas}/>
 		</>
 	);
