@@ -6,6 +6,7 @@ import br.com.api.pessoa.model.Pessoa;
 import br.com.api.pessoa.repository.PessoaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,5 +45,11 @@ public class PessoaController {
 	public Pessoa alterar(@PathVariable Integer id, @RequestBody Pessoa p) {
 		p.setId(id);
 		return repository.save(p);
+	}
+
+	// Rota para remover
+	@DeleteMapping("/remover/{id}")
+	public void remover(@PathVariable Integer id){
+		repository.deleteById(id);
 	}
 }
