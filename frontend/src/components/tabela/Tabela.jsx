@@ -1,5 +1,5 @@
 // Componente
-function Tabela({registros}){
+function Tabela({registros, funcao}){
 	// Render
 	return(
 		<table className="table table-striped">
@@ -18,7 +18,7 @@ function Tabela({registros}){
 							<td>{indice+1}</td>
 							<td>{pessoa.nome}</td>
 							<td>{pessoa.cidade}</td>
-							<td><button className="btn btn-primary">Selecionar</button></td>
+							<td><button onClick={() => funcao(indice)} className="btn btn-primary">Selecionar</button></td>
 						</tr>
 					))
 				}

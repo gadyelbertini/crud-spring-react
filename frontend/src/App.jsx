@@ -40,12 +40,17 @@ function App(){
 		})
 	}
 
+	// Selecionar pessoa específica
+	const selecionarPessoa = (indice) => {
+		setPessoa(pessoas[indice]);
+		setBotaoCadastrar(false);
+	}
 
 	// Render
 	return(
 		<>
-			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar}/>
-			<Tabela registros={pessoas}/>
+			<Formulario botao={botaoCadastrar} atualizarPessoa={atualizarPessoa} cadastrar={cadastrar} pessoa={pessoa}/>
+			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
 }
