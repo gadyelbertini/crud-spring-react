@@ -1,13 +1,12 @@
-// Importar o Bootstrap
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
-
 // Importar componentes
 import Formulario from "./components/formulario/Formulario";
-import Tabela from "./components/tabela/Tabela";
+import GridPessoas from "./components/gridPessoas/GridPessoas";
 
 // Hook useEffect e useState
 import { useEffect, useState } from "react";
+
+// Importar funções da camada de serviço
+import { alterarPessoa, cadastrarPessoa, listarPessoas, removerPessoa } from "./service/pessoaService";
 
 // Componente
 function App(){
@@ -17,61 +16,58 @@ function App(){
 	const[botaoCadastrar, setBotaoCadastrar] = useState(true);
 	const[pessoa, setPessoa] = useState({id:null, nome:"", cidade:""});
 
-	// Hook useEffect
 	useEffect(() => {
-		fetch("http://localhost:8080/selecionar").then(response => response.json()).then(pessoas => setPessoas(pessoas));
+		const fetchPessoas = async () => {
+			const dados = await listarPessoas();
+			setPessoas(dados);
+		};
+
+		fetchPessoas();
 	}, []);
 
 	// Atualizar objeto pessoa
 	const atualizarPessoa = (e) => {
-		const {name, value} = e.target;
-		setPessoa({...pessoa, [name]:value})
+		const {name, value, files, type } = e.target;
+
+		if (type === "file") {
+			// Salva o arquivo e o preview
+			setPessoa({...pessoa, [name]: files[0], preview: URL.createObjectURL(files[0])});
+		} else {
+			setPessoa({...pessoa, [name]: value});
+		}
 	}
 
 	// Cadastrar
-	const cadastrar = () => {
-		fetch("http://localhost:8080/cadastrar", {
-			method:"POST",
-			headers:{"Content-Type":"application/json"},
-			body:JSON.stringify(pessoa)
-		}).then(retorno => retorno.json()).then(p => {
-			setPessoas(vetor => [...vetor, p]);
-			setPessoa({id:null, nome:"", cidade:""});
-		})
+	const cadastrar = async () => {
+		const novaPessoa = await cadastrarPessoa(pessoa);
+		setPessoas([...pessoas, novaPessoa]);
+		setPessoa({imagem: null, nome: "", cidade: ""});
 	}
 
-	// Selecionar pessoa específica
+	// Selelcionar pessoa específica
 	const selecionarPessoa = (indice) => {
-		setPessoa(pessoas[indice]);
+		setPessoa(pessoa[indice]);
 		setBotaoCadastrar(false);
 	}
 
 	// Cancelar
 	const cancelar = () => {
-		setPessoa({id:null, nome:"", cidade:""});
+		setPessoa({imagem: null, nome: "", cidade: ""});
 		setBotaoCadastrar(true);
 	}
 
-	// Aterar
-	const alterar = () => {
-		fetch("http://localhost:8080/alterar/" + pessoa.id, {
-			method:"PUT",
-			headers:{"Content-Type":"application/json"},
-			body:JSON.stringify(pessoa)
-		}).then(retorno => retorno.json()).then(p => {
-			setPessoas(pessoas.map(pessoa => pessoa.i === p.id ? p : pessoa));
-			cancelar();
-		})
+	// Alterar
+	const alterar = async () => {
+		const atualizado = await alterarPessoa(pessoa.id, pessoa);
+		setPessoas(pessoas.map(pessoa => (pessoa.id === atualizado.id ? atualizado : pessoa)));
+		cancelar();
 	}
 
 	// Remover
-	const remover = () => {
-		fetch("http://localhost:8080/remover/" + pessoa.id, {
-			method:"DELETE"
-		}).then(() => {
-			setPessoas(pessoas.filter(p => p.id !== pessoa.id));
-			cancelar();
-		})
+	const remover = async () => {
+		await removerPessoa(pessoa.id);
+		setPessoas(pessoas.filter(p => p.id !== pessoa.id));
+		cancelar();
 	}
 
 	// Render
@@ -87,7 +83,7 @@ function App(){
 				pessoa={pessoa}
 				
 			/>
-			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
+			<GridPessoas registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
 }
