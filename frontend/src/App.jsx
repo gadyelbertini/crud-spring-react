@@ -1,6 +1,6 @@
 // Importar componentes
 import Formulario from "./components/formulario/Formulario";
-import Tabela from "./components/tabela/Tabela";
+import GridPessoas from "./components/gridPessoas/GridPessoas";
 
 // Hook useEffect e useState
 import { useEffect, useState } from "react";
@@ -83,7 +83,7 @@ function App(){
 				pessoa={pessoa}
 				
 			/>
-			<Tabela registros={pessoas} funcao={selecionarPessoa}/>
+			<GridPessoas registros={pessoas} funcao={selecionarPessoa}/>
 		</>
 	);
 }
